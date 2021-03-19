@@ -1,8 +1,5 @@
 {
-<<<<<<< HEAD
   "homepage": "http://volodsher.github.io/todo",
-=======
->>>>>>> 7902ac4ea2bfe647dc02882712c2f06429322b65
   "name": "todo",
   "version": "0.1.0",
   "private": true,
