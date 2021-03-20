@@ -56,7 +56,6 @@ export default function TodoList({ todos, setTodos, todosToShow }) {
       <ul className="todo-list">
         {todosNew.map(todo => (
           <Todo
-            todos={todosNew}
             todo={todo}
             key={todo.id}
             text={todo.text}

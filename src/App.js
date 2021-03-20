@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import TodoApp from './components/TodoApp/TodoApp';
+import FuncTodoApp from './components/Func/TodoApp/TodoApp';
 
 const App = () => (
   <>
-    <TodoApp />
+    <FuncTodoApp />
     <Fragment><p>class todo</p></Fragment>
     <Fragment><p>Redux todo</p></Fragment>
   </>

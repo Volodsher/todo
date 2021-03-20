@@ -27,7 +27,6 @@ export default function TodoForm({ setTodosGet, getTodos }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>functional todo</h1>
       <input
         name="text"
         className="new-todo"
