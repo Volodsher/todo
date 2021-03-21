@@ -3,7 +3,7 @@ import TodoForm from '../TodoForm/TodoForm';
 import TodoList from '../TodoList/TodoList';
 import Footer from '../Footer/Footer';
 
-export default function FuncTodoApp() {
+export default function CTodoApp() {
   const [todos, setTodos] = useState([]);
   const [todosToShow, setTodosToShow] = useState('all');
 
