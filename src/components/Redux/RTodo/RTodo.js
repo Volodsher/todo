@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Todo({ todo, toggleComplete, text, toDelete }) {
+export default function RTodo({ todo, toggleComplete, text, toDelete }) {
   return (
     <li
       className=""
@@ -38,7 +38,7 @@ export default function Todo({ todo, toggleComplete, text, toDelete }) {
   );
 }
 
-Todo.propTypes = {
+RTodo.propTypes = {
   todo: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,

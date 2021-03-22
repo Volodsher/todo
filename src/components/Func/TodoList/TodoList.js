@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Todo from '../Todo/Todo';
 
-export default function TodoList({ todos, setTodos, todosToShow }) {
+export default function TodoList({ tasks, setTasks, tasksToShow }) {
   const [toggleAll, setToggleAll] = useState(true);
 
   const handleDelete = (id) => {
-    setTodos([...todos].filter(todo => todo.id !== id));
+    setTasks([...tasks].filter(todo => todo.id !== id));
   };
 
   const toggleComplete = (id) => {
-    setTodos(todos.map((todo) => {
+    setTasks(tasks.map((todo) => {
       if (todo.id === id) {
         return {
           ...todo,
@@ -25,8 +25,8 @@ export default function TodoList({ todos, setTodos, todosToShow }) {
   const toggleAllComplete = () => {
     setToggleAll(!toggleAll);
 
-    setTodos(
-      [...todos].map(todo => ({
+    setTasks(
+      [...tasks].map(todo => ({
         ...todo,
         complete: toggleAll,
       }))
@@ -35,12 +35,12 @@ export default function TodoList({ todos, setTodos, todosToShow }) {
 
   let todosNew = [];
 
-  if (todosToShow === 'all') {
-    todosNew = [...todos];
-  } else if (todosToShow === 'active') {
-    todosNew = [...todos].filter(todo => !todo.complete);
-  } else if (todosToShow === 'complete') {
-    todosNew = [...todos].filter(todo => todo.complete);
+  if (tasksToShow === 'all') {
+    todosNew = [...tasks];
+  } else if (tasksToShow === 'active') {
+    todosNew = [...tasks].filter(todo => !todo.complete);
+  } else if (tasksToShow === 'complete') {
+    todosNew = [...tasks].filter(todo => todo.complete);
   }
 
   return (
@@ -56,7 +56,6 @@ export default function TodoList({ todos, setTodos, todosToShow }) {
       <ul className="todo-list">
         {todosNew.map(todo => (
           <Todo
-            todos={todosNew}
             todo={todo}
             key={todo.id}
             text={todo.text}
@@ -70,11 +69,11 @@ export default function TodoList({ todos, setTodos, todosToShow }) {
 }
 
 TodoList.propTypes = {
-  setTodos: PropTypes.func.isRequired,
-  todos: PropTypes.arrayOf(PropTypes.shape({
+  setTasks: PropTypes.func.isRequired,
+  tasks: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
     completed: PropTypes.bool,
   })).isRequired,
-  todosToShow: PropTypes.string.isRequired,
+  tasksToShow: PropTypes.string.isRequired,
 };

@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Footer(
-  { todosGet,
-    todosSet,
-    todosToShowGet,
-    TodosToShowSet }
+  { rTodosGet,
+    rTodosSet,
+    rTodosToShowGet,
+    rTodosToShowSet }
 ) {
-  const lengthOfTodos = () => [...todosGet].filter(
+  const lengthOfTodos = () => [...rTodosGet].filter(
     todo => todo.complete === false
   ).length;
 
@@ -22,10 +22,10 @@ export default function Footer(
         <li>
           <a
             href="#/"
-            onClick={() => TodosToShowSet('all')}
+            onClick={() => rTodosToShowSet('all')}
             style={{
               borderColor:
-              todosToShowGet === 'all'
+              rTodosToShowGet === 'all'
                 ? 'rgba(175, 47, 47, 0.2)'
                 : '',
             }}
@@ -37,10 +37,10 @@ export default function Footer(
         <li>
           <a
             href="#/active"
-            onClick={() => TodosToShowSet('active')}
+            onClick={() => rTodosToShowSet('active')}
             style={{
               borderColor:
-              todosToShowGet === 'active'
+              rTodosToShowGet === 'active'
                 ? 'rgba(175, 47, 47, 0.2)'
                 : '',
             }}
@@ -52,10 +52,10 @@ export default function Footer(
         <li>
           <a
             href="#/completed"
-            onClick={() => TodosToShowSet('complete')}
+            onClick={() => rTodosToShowSet('complete')}
             style={{
               borderColor:
-              todosToShowGet === 'complete'
+              rTodosToShowGet === 'complete'
                 ? 'rgba(175, 47, 47, 0.2)'
                 : '',
             }}
@@ -70,7 +70,7 @@ export default function Footer(
         className="clear-completed"
         style={{ display: 'block' }}
         onClick={() => {
-          todosSet([...todosGet].filter(todo => !todo.complete));
+          rTodosSet([...rTodosGet].filter(todo => !todo.complete));
         }}
       >
         Clear all complete
@@ -80,12 +80,12 @@ export default function Footer(
 }
 
 Footer.propTypes = {
-  todosGet: PropTypes.arrayOf(PropTypes.shape({
+  rTodosGet: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
     completed: PropTypes.bool,
   })).isRequired,
-  todosSet: PropTypes.func.isRequired,
-  TodosToShowSet: PropTypes.func.isRequired,
-  todosToShowGet: PropTypes.string.isRequired,
+  rTodosSet: PropTypes.func.isRequired,
+  rTodosToShowSet: PropTypes.func.isRequired,
+  rTodosToShowGet: PropTypes.string.isRequired,
 };

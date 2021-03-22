@@ -23,7 +23,7 @@ export default function FuncTodoApp() {
       <header className="header">Func-Todo {todos.filter((todo) => !todo.complete).length}</header>
       <section className="todoapp">
         <TodoForm className="header" setTodosGet={setTodos} getTodos={todos} />
-        <TodoList todos={todos} setTodos={setTodos} todosToShow={todosToShow} />
+        <TodoList tasks={todos} setTasks={setTodos} tasksToShow={todosToShow} />
         <Footer
           todosGet={todos}
           todosSet={setTodos}

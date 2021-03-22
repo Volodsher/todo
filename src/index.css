@@ -120,6 +120,8 @@ body {
   border-top: 1px solid #e6e6e6;
 }
 
+.c-toggle-all,
+.r-toggle-all,
 .toggle-all {
   width: 1px;
   height: 1px;
@@ -130,6 +132,8 @@ body {
   bottom: 100%;
 }
 
+.c-toggle-all + label,
+.r-toggle-all + label,
 .toggle-all + label {
   width: 60px;
   height: 34px;
@@ -141,6 +145,8 @@ body {
   transform: rotate(90deg);
 }
 
+.c-toggle-all + label:before,
+.r-toggle-all + label:before,
 .toggle-all + label:before {
   content: '❯';
   font-size: 22px;
@@ -148,6 +154,8 @@ body {
   padding: 10px 27px 10px 27px;
 }
 
+.c-toggle-all:checked + label:before ,
+.r-toggle-all:checked + label:before ,
 .toggle-all:checked + label:before {
   color: #737373;
 }

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import TodoForm from '../TodoForm/TodoForm';
-import TodoList from '../TodoList/TodoList';
-import Footer from '../Footer/Footer';
+import CTodoForm from '../CTodoForm/CTodoForm';
+import CTodoList from '../CTodoList/CTodoList';
+import CFooter from '../CFooter/CFooter';
 
 export default function CTodoApp() {
-  const [todos, setTodos] = useState([]);
-  const [todosToShow, setTodosToShow] = useState('all');
+  const [cTodos, setCTodos] = useState([]);
+  const [cTodosToShow, setCTodosToShow] = useState('all');
 
-  if (todos.length === 0) {
+  if (cTodos.length === 0) {
     return (
       <>
-        <header className="header">Func-Todo 0</header>
+        <header className="header">Class-Todo 0</header>
         <section className="todoapp">
-          <TodoForm setTodosGet={setTodos} getTodos={todos} />
+          <CTodoForm setCTodosGet={setCTodos} getCTodos={cTodos} />
         </section>
       </>
     );
@@ -20,15 +20,15 @@ export default function CTodoApp() {
 
   return (
     <>
-      <header className="header">Func-Todo {todos.filter((todo) => !todo.complete).length}</header>
+      <header className="header">Class-Todo {cTodos.filter((todo) => !todo.complete).length}</header>
       <section className="todoapp">
-        <TodoForm className="header" setTodosGet={setTodos} getTodos={todos} />
-        <TodoList todos={todos} setTodos={setTodos} todosToShow={todosToShow} />
-        <Footer
-          todosGet={todos}
-          todosSet={setTodos}
-          todosToShowGet={todosToShow}
-          TodosToShowSet={setTodosToShow}
+        <CTodoForm className="header" setCTodosGet={setCTodos} getCTodos={cTodos} />
+        <CTodoList cTasks={cTodos} setCTasks={setCTodos} cTasksToShow={cTodosToShow} />
+        <CFooter
+          cTodosGet={cTodos}
+          cTodosSet={setCTodos}
+          cTodosToShowGet={cTodosToShow}
+          cTodosToShowSet={setCTodosToShow}
         />
       </section>
     </>

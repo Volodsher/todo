@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Todo({ todo, toggleComplete, text, toDelete }) {
+export default function CTodo({ todo, cToggleComplete, text, toDelete }) {
   return (
     <li
       className=""
@@ -22,7 +22,7 @@ export default function Todo({ todo, toggleComplete, text, toDelete }) {
           type="checkbox"
           className="toggle"
           id={todo.id}
-          onChange={toggleComplete}
+          onChange={cToggleComplete}
           checked={todo.complete ? 'checked' : ''}
         />
         <label htmlFor="todo-1">
@@ -38,13 +38,13 @@ export default function Todo({ todo, toggleComplete, text, toDelete }) {
   );
 }
 
-Todo.propTypes = {
+CTodo.propTypes = {
   todo: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
     completed: PropTypes.bool,
   }).isRequired,
   text: PropTypes.string.isRequired,
-  toggleComplete: PropTypes.func.isRequired,
+  cToggleComplete: PropTypes.func.isRequired,
   toDelete: PropTypes.func.isRequired,
 };

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Footer(
-  { todosGet,
-    todosSet,
-    todosToShowGet,
-    TodosToShowSet }
+export default function CFooter(
+  { cTodosGet,
+    cTodosSet,
+    cTodosToShowGet,
+    cTodosToShowSet }
 ) {
-  const lengthOfTodos = () => [...todosGet].filter(
+  const lengthOfTodos = () => [...cTodosGet].filter(
     todo => todo.complete === false
   ).length;
 
@@ -22,10 +22,10 @@ export default function Footer(
         <li>
           <a
             href="#/"
-            onClick={() => TodosToShowSet('all')}
+            onClick={() => cTodosToShowSet('all')}
             style={{
               borderColor:
-              todosToShowGet === 'all'
+              cTodosToShowGet === 'all'
                 ? 'rgba(175, 47, 47, 0.2)'
                 : '',
             }}
@@ -37,10 +37,10 @@ export default function Footer(
         <li>
           <a
             href="#/active"
-            onClick={() => TodosToShowSet('active')}
+            onClick={() => cTodosToShowSet('active')}
             style={{
               borderColor:
-              todosToShowGet === 'active'
+              cTodosToShowGet === 'active'
                 ? 'rgba(175, 47, 47, 0.2)'
                 : '',
             }}
@@ -52,10 +52,10 @@ export default function Footer(
         <li>
           <a
             href="#/completed"
-            onClick={() => TodosToShowSet('complete')}
+            onClick={() => cTodosToShowSet('complete')}
             style={{
               borderColor:
-              todosToShowGet === 'complete'
+              cTodosToShowGet === 'complete'
                 ? 'rgba(175, 47, 47, 0.2)'
                 : '',
             }}
@@ -70,7 +70,7 @@ export default function Footer(
         className="clear-completed"
         style={{ display: 'block' }}
         onClick={() => {
-          todosSet([...todosGet].filter(todo => !todo.complete));
+          cTodosSet([...cTodosGet].filter(todo => !todo.complete));
         }}
       >
         Clear all complete
@@ -79,13 +79,13 @@ export default function Footer(
   );
 }
 
-Footer.propTypes = {
-  todosGet: PropTypes.arrayOf(PropTypes.shape({
+CFooter.propTypes = {
+  cTodosGet: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
     completed: PropTypes.bool,
   })).isRequired,
-  todosSet: PropTypes.func.isRequired,
-  TodosToShowSet: PropTypes.func.isRequired,
-  todosToShowGet: PropTypes.string.isRequired,
+  cTodosSet: PropTypes.func.isRequired,
+  cTodosToShowSet: PropTypes.func.isRequired,
+  cTodosToShowGet: PropTypes.string.isRequired,
 };

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Todo from '../Todo/Todo';
+import RTodo from '../RTodo/RTodo';
 
-export default function TodoList({ todos, setTodos, todosToShow }) {
+export default function TodoList({ rTodos, setRTodos, rTodosToShow }) {
   const [toggleAll, setToggleAll] = useState(true);
 
   const handleDelete = (id) => {
-    setTodos([...todos].filter(todo => todo.id !== id));
+    setRTodos([...rTodos].filter(todo => todo.id !== id));
   };
 
   const toggleComplete = (id) => {
-    setTodos(todos.map((todo) => {
+    setRTodos(rTodos.map((todo) => {
       if (todo.id === id) {
         return {
           ...todo,
@@ -25,8 +25,8 @@ export default function TodoList({ todos, setTodos, todosToShow }) {
   const toggleAllComplete = () => {
     setToggleAll(!toggleAll);
 
-    setTodos(
-      [...todos].map(todo => ({
+    setRTodos(
+      [...rTodos].map(todo => ({
         ...todo,
         complete: toggleAll,
       }))
@@ -35,12 +35,12 @@ export default function TodoList({ todos, setTodos, todosToShow }) {
 
   let todosNew = [];
 
-  if (todosToShow === 'all') {
-    todosNew = [...todos];
-  } else if (todosToShow === 'active') {
-    todosNew = [...todos].filter(todo => !todo.complete);
-  } else if (todosToShow === 'complete') {
-    todosNew = [...todos].filter(todo => todo.complete);
+  if (rTodosToShow === 'all') {
+    todosNew = [...rTodos];
+  } else if (rTodosToShow === 'active') {
+    todosNew = [...rTodos].filter(todo => !todo.complete);
+  } else if (rTodosToShow === 'complete') {
+    todosNew = [...rTodos].filter(todo => todo.complete);
   }
 
   return (
@@ -48,15 +48,14 @@ export default function TodoList({ todos, setTodos, todosToShow }) {
       <input
         onClick={toggleAllComplete}
         type="checkbox"
-        id="toggle-all"
+        id="r-toggle-all"
         name="toggleAll"
-        className="toggle-all"
+        className="r-toggle-all"
       />
-      <label htmlFor="toggle-all">Mark all as complete</label>
+      <label htmlFor="r-toggle-all">Mark all as complete</label>
       <ul className="todo-list">
         {todosNew.map(todo => (
-          <Todo
-            todos={todosNew}
+          <RTodo
             todo={todo}
             key={todo.id}
             text={todo.text}
@@ -70,11 +69,11 @@ export default function TodoList({ todos, setTodos, todosToShow }) {
 }
 
 TodoList.propTypes = {
-  setTodos: PropTypes.func.isRequired,
-  todos: PropTypes.arrayOf(PropTypes.shape({
+  setRTodos: PropTypes.func.isRequired,
+  rTodos: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
     completed: PropTypes.bool,
   })).isRequired,
-  todosToShow: PropTypes.string.isRequired,
+  rTodosToShow: PropTypes.string.isRequired,
 };

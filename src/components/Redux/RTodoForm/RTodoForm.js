@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
 
-export default function TodoForm({ setTodosGet, getTodos }) {
+export default function RTodoForm({ setRTodosGet, getRTodos }) {
   const [text, setText] = useState('');
 
   const handleChange = ({ target }) => {
@@ -19,7 +19,7 @@ export default function TodoForm({ setTodosGet, getTodos }) {
     };
 
     if (todo.text.trim() !== '') {
-      setTodosGet([todo, ...getTodos]);
+      setRTodosGet([todo, ...getRTodos]);
     }
 
     setText('');
@@ -38,9 +38,9 @@ export default function TodoForm({ setTodosGet, getTodos }) {
   );
 }
 
-TodoForm.propTypes = {
-  setTodosGet: PropTypes.func.isRequired,
-  getTodos: PropTypes.arrayOf(PropTypes.shape({
+RTodoForm.propTypes = {
+  setRTodosGet: PropTypes.func.isRequired,
+  getRTodos: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
     completed: PropTypes.bool,

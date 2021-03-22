@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import TodoForm from '../TodoForm/TodoForm';
-import TodoList from '../TodoList/TodoList';
-import Footer from '../Footer/Footer';
+import RTodoForm from '../RTodoForm/RTodoForm';
+import RTodoList from '../RTodoList/RTodoList';
+import RFooter from '../RFooter/RFooter';
 
 export default function RTodoApp() {
-  const [todos, setTodos] = useState([]);
-  const [todosToShow, setTodosToShow] = useState('all');
+  const [rTodos, setRTodos] = useState([]);
+  const [rTodosToShow, setRTodosToShow] = useState('all');
 
-  if (todos.length === 0) {
+  if (rTodos.length === 0) {
     return (
       <>
         <header className="header">Redux-Todo 0</header>
         <section className="todoapp">
-          <TodoForm setTodosGet={setTodos} getTodos={todos} />
+          <RTodoForm setRTodosGet={setRTodos} getRTodos={rTodos} />
         </section>
       </>
     );
@@ -20,15 +20,15 @@ export default function RTodoApp() {
 
   return (
     <>
-      <header className="header">Redux-Todo {todos.filter((todo) => !todo.complete).length}</header>
+      <header className="header">Redux-Todo {rTodos.filter((todo) => !todo.complete).length}</header>
       <section className="todoapp">
-        <TodoForm className="header" setTodosGet={setTodos} getTodos={todos} />
-        <TodoList todos={todos} setTodos={setTodos} todosToShow={todosToShow} />
-        <Footer
-          todosGet={todos}
-          todosSet={setTodos}
-          todosToShowGet={todosToShow}
-          TodosToShowSet={setTodosToShow}
+        <RTodoForm className="header" setRTodosGet={setRTodos} getRTodos={rTodos} />
+        <RTodoList rTodos={rTodos} setRTodos={setRTodos} rTodosToShow={rTodosToShow} />
+        <RFooter
+          rTodosGet={rTodos}
+          rTodosSet={setRTodos}
+          rTodosToShowGet={rTodosToShow}
+          rTodosToShowSet={setRTodosToShow}
         />
       </section>
     </>
