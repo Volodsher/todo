@@ -73,7 +73,7 @@ export default function Footer(
           todosSet([...todosGet].filter(todo => !todo.complete));
         }}
       >
-        Clear all complete
+        Clear all completed
       </button>
     </footer>
   );

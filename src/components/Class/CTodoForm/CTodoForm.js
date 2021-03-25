@@ -1,48 +1,45 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
 
-export default function CTodoForm({ setCTodosGet, getCTodos }) {
-  const [text, setText] = useState('');
+export default class TodoForm extends Component {
+  state = {
+    text: '',
+  }
 
-  const handleChange = ({ target }) => {
-    setText(target.value);
+  handleChange = ({ target }) => {
+    this.setState({
+      [target.name]: target.value,
+    });
   };
 
-  const handleSubmit = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
-
-    const todo = {
+    this.props.addCTodoSet({
       id: shortid.generate(),
-      text,
+      text: this.state.text,
       complete: false,
-    };
+    });
+    this.setState({
+      text: '',
+    });
+  }
 
-    if (todo.text.trim() !== '') {
-      setCTodosGet([todo, ...getCTodos]);
-    }
-
-    setText('');
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="text"
-        className="new-todo"
-        placeholder="What needs to be done?"
-        onChange={handleChange}
-        value={text}
-      />
-    </form>
-  );
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input
+          name="text"
+          className="new-todo"
+          placeholder="What needs to be done?"
+          onChange={this.handleChange}
+          value={this.state.text}
+        />
+      </form>
+    );
+  }
 }
 
-CTodoForm.propTypes = {
-  setCTodosGet: PropTypes.func.isRequired,
-  getCTodos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    completed: PropTypes.bool,
-  })).isRequired,
+TodoForm.propTypes = {
+  addCTodoSet: PropTypes.func.isRequired,
 };

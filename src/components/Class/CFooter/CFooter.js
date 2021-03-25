@@ -1,91 +1,92 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default function CFooter(
-  { cTodosGet,
-    cTodosSet,
-    cTodosToShowGet,
-    cTodosToShowSet }
-) {
-  const lengthOfTodos = () => [...cTodosGet].filter(
-    todo => todo.complete === false
-  ).length;
+export default class CFooter extends Component {
 
-  return (
-    <footer className="footer" style={{ display: 'block' }}>
+  render() {
+    const {
+      jobs,
+      handleJobsToShow,
+      jobsToShow,
+      deleteAllCompleted
+    } = this.props;
+    const lengthOfJobs = () => [...jobs].filter(
+      todo => todo.complete === false
+    ).length;
 
-      <span className="todo-count">
-        {`${lengthOfTodos()} items left`}
-      </span>
+    return (
+      <footer className="footer" style={{ display: 'block' }}>
+  
+        <span className="todo-count">
+          {`${lengthOfJobs()} items left`}
+        </span>
 
-      <ul className="filters">
-        <li>
-          <a
-            href="#/"
-            onClick={() => cTodosToShowSet('all')}
-            style={{
-              borderColor:
-              cTodosToShowGet === 'all'
-                ? 'rgba(175, 47, 47, 0.2)'
-                : '',
-            }}
-          >
-            All
-          </a>
-        </li>
-
-        <li>
-          <a
-            href="#/active"
-            onClick={() => cTodosToShowSet('active')}
-            style={{
-              borderColor:
-              cTodosToShowGet === 'active'
-                ? 'rgba(175, 47, 47, 0.2)'
-                : '',
-            }}
-          >
-            Active
-          </a>
-        </li>
-
-        <li>
-          <a
-            href="#/completed"
-            onClick={() => cTodosToShowSet('complete')}
-            style={{
-              borderColor:
-              cTodosToShowGet === 'complete'
-                ? 'rgba(175, 47, 47, 0.2)'
-                : '',
-            }}
-          >
-            Completed
-          </a>
-        </li>
-      </ul>
-
-      <button
-        type="button"
-        className="clear-completed"
-        style={{ display: 'block' }}
-        onClick={() => {
-          cTodosSet([...cTodosGet].filter(todo => !todo.complete));
-        }}
-      >
-        Clear all complete
-      </button>
-    </footer>
-  );
+        <ul className="filters">
+          <li>
+            <a
+              href="#/"
+              onClick={() => handleJobsToShow('all')}
+              style={{
+                borderColor:
+                  jobsToShow === 'all'
+                  ? 'rgba(175, 47, 47, 0.2)'
+                  : '',
+              }}
+            >
+              All
+            </a>
+          </li>
+  
+          <li>
+            <a
+              href="#/active"
+              onClick={() => handleJobsToShow('active')}
+              style={{
+                borderColor:
+                  jobsToShow === 'active'
+                  ? 'rgba(175, 47, 47, 0.2)'
+                  : '',
+              }}
+            >
+              Active
+            </a>
+          </li>
+  
+          <li>
+            <a
+              href="#/completed"
+              onClick={() => handleJobsToShow('complete')}
+              style={{
+                borderColor:
+                  jobsToShow === 'complete'
+                  ? 'rgba(175, 47, 47, 0.2)'
+                  : '',
+              }}
+            >
+              Completed
+            </a>
+          </li>
+        </ul>
+        <button
+          type="button"
+          className="clear-completed"
+          style={{ display: 'block' }}
+          onClick={() => deleteAllCompleted()}
+        >
+          Clear all completed
+        </button>
+      </footer>
+    );
+  }
 }
 
 CFooter.propTypes = {
-  cTodosGet: PropTypes.arrayOf(PropTypes.shape({
+  jobs: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
     completed: PropTypes.bool,
   })).isRequired,
-  cTodosSet: PropTypes.func.isRequired,
-  cTodosToShowSet: PropTypes.func.isRequired,
-  cTodosToShowGet: PropTypes.string.isRequired,
+  handleJobsToShow: PropTypes.func.isRequired,
+  jobsToShow: PropTypes.string.isRequired,
+  deleteAllCompleted: PropTypes.func.isRequired,
 };

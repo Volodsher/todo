@@ -1,41 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Todo({ todo, toggleComplete, text, toDelete }) {
-  return (
-    <li
-      className=""
-      style={{
-        textDecoration:
-          todo.complete
-            ? 'line-through'
-            : '',
-        color:
-          todo.complete
-            ? '#e4e4e4'
-            : '',
-      }}
-    >
-      <div className="view">
-        <input
-          name="status"
-          type="checkbox"
-          className="toggle"
-          id={todo.id}
-          onChange={toggleComplete}
-          checked={todo.complete ? 'checked' : ''}
-        />
-        <label htmlFor="todo-1">
-          {text}
-        </label>
-        <button
-          type="button"
-          className="destroy"
-          onClick={toDelete}
-        />
-      </div>
-    </li>
-  );
+export default class Todo extends Component {
+  render() {
+    const { todo, toggleComplete, text, toDelete } = this.props;
+
+    return (
+      <li
+        className=""
+        style={{
+          textDecoration:
+            todo.complete
+              ? 'line-through'
+              : '',
+          color:
+            todo.complete
+              ? '#e4e4e4'
+              : '',
+        }}
+      >
+        <div className="view">
+          <input
+            name="status"
+            type="checkbox"
+            className="toggle"
+            id={todo.id}
+            onChange={toggleComplete}
+            checked={todo.complete ? 'checked' : ''}
+          />
+          <label htmlFor="todo-1">
+            {text}
+          </label>
+          <button
+            type="button"
+            className="destroy"
+            onClick={toDelete}
+          />
+        </div>
+      </li>
+    );
+  }
 }
 
 Todo.propTypes = {
