@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
 import RTodoForm from '../RTodoForm/RTodoForm';
 import RTodoList from '../RTodoList/RTodoList';
 import RFooter from '../RFooter/RFooter';
 
-export default function RTodoApp() {
-  const [rTodos, setRTodos] = useState([]);
-  const [rTodosToShow, setRTodosToShow] = useState('all');
+import { connect } from 'react-redux';
+
+
+function RTodoApp({ appState }) {
+  const { rTodos } = appState;
 
   if (rTodos.length === 0) {
     return (
       <>
         <header className="header">Redux-Todo 0</header>
         <section className="todoapp">
-          <RTodoForm setRTodosGet={setRTodos} getRTodos={rTodos} />
+          <RTodoForm />
         </section>
+        <p>{rTodos.map((todo) => <p>{todo.text}</p>)}</p>
       </>
     );
   }
@@ -22,15 +24,16 @@ export default function RTodoApp() {
     <>
       <header className="header">Redux-Todo {rTodos.filter((todo) => !todo.complete).length}</header>
       <section className="todoapp">
-        <RTodoForm className="header" setRTodosGet={setRTodos} getRTodos={rTodos} />
-        <RTodoList rTodos={rTodos} setRTodos={setRTodos} rTodosToShow={rTodosToShow} />
-        <RFooter
-          rTodosGet={rTodos}
-          rTodosSet={setRTodos}
-          rTodosToShowGet={rTodosToShow}
-          rTodosToShowSet={setRTodosToShow}
-        />
+        <RTodoForm />
+        <RTodoList />
+        <RFooter />
       </section>
     </>
   );
 }
+
+const mapStateToProps = (state) => ({
+  appState: state,
+});
+
+export default connect(mapStateToProps)(RTodoApp);

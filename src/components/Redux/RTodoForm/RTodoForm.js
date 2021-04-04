@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
 
-export default function RTodoForm({ setRTodosGet, getRTodos }) {
+import { addRTodo } from '../actions';
+import { connect } from 'react-redux';
+
+function RTodoForm({ addNewTodo }) {
   const [text, setText] = useState('');
 
   const handleChange = ({ target }) => {
@@ -19,7 +22,7 @@ export default function RTodoForm({ setRTodosGet, getRTodos }) {
     };
 
     if (todo.text.trim() !== '') {
-      setRTodosGet([todo, ...getRTodos]);
+      addNewTodo(todo)
     }
 
     setText('');
@@ -38,11 +41,16 @@ export default function RTodoForm({ setRTodosGet, getRTodos }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+ state,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addNewTodo: (todo) => dispatch(addRTodo(todo)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RTodoForm);
+
 RTodoForm.propTypes = {
-  setRTodosGet: PropTypes.func.isRequired,
-  getRTodos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    completed: PropTypes.bool,
-  })).isRequired,
+  addNewTodo: PropTypes.func.isRequired,
 };

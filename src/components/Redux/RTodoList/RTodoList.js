@@ -1,52 +1,29 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RTodo from '../RTodo/RTodo';
 
-export default function TodoList({ rTodos, setRTodos, rTodosToShow }) {
-  const [toggleAll, setToggleAll] = useState(true);
+import { connect } from 'react-redux';
+import { deleteOne, completeOne, completeAll } from '../actions';
 
-  const handleDelete = (id) => {
-    setRTodos([...rTodos].filter(todo => todo.id !== id));
-  };
-
-  const toggleComplete = (id) => {
-    setRTodos(rTodos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          complete: !todo.complete,
-        };
-      }
-
-      return todo;
-    }));
-  };
-
-  const toggleAllComplete = () => {
-    setToggleAll(!toggleAll);
-
-    setRTodos(
-      [...rTodos].map(todo => ({
-        ...todo,
-        complete: toggleAll,
-      }))
-    );
-  };
-
+function RTodoList({
+  appState,
+  handleDelete,
+  toggleComplete,
+  toggleCompleteAll
+  }) {
   let todosNew = [];
 
-  if (rTodosToShow === 'all') {
-    todosNew = [...rTodos];
-  } else if (rTodosToShow === 'active') {
-    todosNew = [...rTodos].filter(todo => !todo.complete);
-  } else if (rTodosToShow === 'complete') {
-    todosNew = [...rTodos].filter(todo => todo.complete);
+  if (appState.rTodosToShow === 'all') {
+    todosNew = [...appState.rTodos];
+  } else if (appState.rTodosToShow === 'active') {
+    todosNew = [...appState.rTodos].filter(todo => !todo.complete);
+  } else if (appState.rTodosToShow === 'complete') {
+    todosNew = [...appState.rTodos].filter(todo => todo.complete);
   }
 
   return (
     <section className="main" style={{ display: 'block' }}>
       <input
-        onClick={toggleAllComplete}
+        onClick={toggleCompleteAll}
         type="checkbox"
         id="r-toggle-all"
         name="toggleAll"
@@ -68,12 +45,23 @@ export default function TodoList({ rTodos, setRTodos, rTodosToShow }) {
   );
 }
 
-TodoList.propTypes = {
-  setRTodos: PropTypes.func.isRequired,
-  rTodos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    completed: PropTypes.bool,
-  })).isRequired,
-  rTodosToShow: PropTypes.string.isRequired,
+const mapStateToProps = (state) => ({
+  appState: state, 
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleDelete: (payload) => dispatch(deleteOne(payload)),
+  toggleComplete: (payload) => dispatch(completeOne(payload)),
+  toggleCompleteAll: (payload) => dispatch(completeAll(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RTodoList);
+
+RTodoList.propTypes = {
+  handleDelete: PropTypes.func.isRequired,
+  toggleComplete: PropTypes.func.isRequired,
+  toggleCompleteAll: PropTypes.func.isRequired,
+  appState: PropTypes.shape({
+    rTodosToShow: PropTypes.string,
+  }).isRequired,
 };

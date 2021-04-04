@@ -1,19 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Footer(
-  { rTodosGet,
-    rTodosSet,
-    rTodosToShowGet,
-    rTodosToShowSet }
+import { connect } from 'react-redux';
+import { toShowAll, toShowActive, toShowComplete, clearCompleted } from '../actions';
+
+function RFooter(
+  { 
+    appState,
+    showAll,
+    showActive,
+    showComplete,
+    clearCompleted
+  }
 ) {
-  const lengthOfTodos = () => [...rTodosGet].filter(
+  const { rTodos, rTodosToShow } = appState;
+  const lengthOfTodos = () => [...rTodos].filter(
     todo => todo.complete === false
   ).length;
 
   return (
     <footer className="footer" style={{ display: 'block' }}>
-
       <span className="todo-count">
         {`${lengthOfTodos()} items left`}
       </span>
@@ -22,10 +28,10 @@ export default function Footer(
         <li>
           <a
             href="#/"
-            onClick={() => rTodosToShowSet('all')}
+            onClick={() => showAll()}
             style={{
               borderColor:
-              rTodosToShowGet === 'all'
+              rTodosToShow === 'all'
                 ? 'rgba(175, 47, 47, 0.2)'
                 : '',
             }}
@@ -37,10 +43,10 @@ export default function Footer(
         <li>
           <a
             href="#/active"
-            onClick={() => rTodosToShowSet('active')}
+            onClick={() => showActive()}
             style={{
               borderColor:
-              rTodosToShowGet === 'active'
+              rTodosToShow === 'active'
                 ? 'rgba(175, 47, 47, 0.2)'
                 : '',
             }}
@@ -52,10 +58,10 @@ export default function Footer(
         <li>
           <a
             href="#/completed"
-            onClick={() => rTodosToShowSet('complete')}
+            onClick={() => showComplete()}
             style={{
               borderColor:
-              rTodosToShowGet === 'complete'
+              rTodosToShow === 'complete'
                 ? 'rgba(175, 47, 47, 0.2)'
                 : '',
             }}
@@ -70,7 +76,7 @@ export default function Footer(
         className="clear-completed"
         style={{ display: 'block' }}
         onClick={() => {
-          rTodosSet([...rTodosGet].filter(todo => !todo.complete));
+          clearCompleted();
         }}
       >
         Clear all completed
@@ -79,13 +85,25 @@ export default function Footer(
   );
 }
 
-Footer.propTypes = {
-  rTodosGet: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    completed: PropTypes.bool,
-  })).isRequired,
-  rTodosSet: PropTypes.func.isRequired,
-  rTodosToShowSet: PropTypes.func.isRequired,
-  rTodosToShowGet: PropTypes.string.isRequired,
+const mapStateToProps = (state) => ({
+  appState: state,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  showAll: () => dispatch(toShowAll()),
+  showActive: () => dispatch(toShowActive()),
+  showComplete: () => dispatch(toShowComplete()),
+  clearCompleted: () => dispatch(clearCompleted()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RFooter);
+
+RFooter.propTypes = {
+  clearCompleted: PropTypes.func.isRequired,
+  showAll: PropTypes.func.isRequired,
+  showActive: PropTypes.func.isRequired,
+  showComplete: PropTypes.func.isRequired,
+  appState: PropTypes.shape({
+    rTodosToShow: PropTypes.string,
+  }).isRequired,
 };
