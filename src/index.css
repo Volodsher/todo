@@ -77,8 +77,8 @@ body {
 }
 
 .header {
-  margin: 30px;
-  padding: 10px;
+  line-height: 1em;
+  margin: 20px;
   font-size: 70px;
   font-weight: 50;
   text-align: center;
@@ -377,6 +377,13 @@ html .clear-completed:active {
 
   .todo-list li .toggle {
     height: 40px;
+  }
+}
+
+@media (max-width: 540px) {
+  .header {
+    margin: 10px;
+    font-size: 50px;
   }
 }
 
