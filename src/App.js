@@ -16,6 +16,11 @@ const App = () => (
     <Provider store={store}>
       <RTodoApp />
     </Provider>
+    <a
+      href="https://github.com/Volodsher/todo/"
+    >
+      Review a code
+    </a>
   </>
 );
 
